@@ -57,7 +57,7 @@ function App() {
   return (
     <div className='App'>
       <h1>Welcome to <span>Inco Network</span></h1>
-      <span className='footer'>Switch to Inco Network on Metamask: <a href='https://docs.inco.network/getting-started/connect-metamask' target="_blank">Guide</a></span>
+  
       <Form className="Form-container">
       <Form.Group className="form-group">
             <Form.Label className="label" >uint8: </Form.Label> 

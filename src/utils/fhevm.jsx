@@ -4,7 +4,7 @@ export const init = async () => {
   await initFhevm();
 };
 
-export const provider = new BrowserProvider(window.ethereum);
+export const provider = new JsonRpcProvider("https://evm-rpc.inco.network");
 
 let instance;
 
