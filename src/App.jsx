@@ -61,7 +61,7 @@ function App() {
       <Form className="Form-container">
       <Form.Group className="form-group">
             <Form.Label className="label" >uint8: </Form.Label> 
-            <Form.Control style={{ color: 'white' }} type="text" value={amountUint8} placeholder="10" onChange={handleAmountChangeUint8} className="Input"/>
+            <Form.Control style={{ color: 'black' }} type="text" value={amountUint8} placeholder="10" onChange={handleAmountChangeUint8} className="Input"/>
         </Form.Group>
         <Form.Group className="form-group">
             <Form.Label className="label">ciphertext  </Form.Label> 
@@ -72,7 +72,7 @@ function App() {
         </Form.Group>
         <Form.Group className="form-group">
             <Form.Label className="label" >uint16: </Form.Label> 
-            <Form.Control style={{ color: 'white' }} type="text" value={amountUint16} placeholder="10" onChange={handleAmountChangeUint16} className="Input"/>
+            <Form.Control style={{ color: 'black' }} type="text" value={amountUint16} placeholder="10" onChange={handleAmountChangeUint16} className="Input"/>
         </Form.Group>
         <Form.Group className="form-group">
             <Form.Label className="label">ciphertext  </Form.Label> 
@@ -83,7 +83,7 @@ function App() {
         </Form.Group>
         <Form.Group className="form-group">
             <Form.Label className="label" >uint32: </Form.Label> 
-            <Form.Control style={{ color: 'white' }} type="text" value={amountUint32} placeholder="10" onChange={handleAmountChangeUint32} className="Input"/>
+            <Form.Control style={{ color: 'black' }} type="text" value={amountUint32} placeholder="10" onChange={handleAmountChangeUint32} className="Input"/>
         </Form.Group>
         <Form.Group className="form-group">
             <Form.Label className="label">ciphertext  </Form.Label> 
