@@ -83,7 +83,7 @@ function Example() {
         Welcome to <span>Inco Network</span>
       </h1>
       <span className="footer">
-        Switch to Inco Network on Metamask:{" "}
+        Switch to Inco Gentry Testnet on Metamask:{" "}
         <a
           href="https://docs.inco.network/getting-started/connect-metamask"
           target="_blank"
