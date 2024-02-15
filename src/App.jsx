@@ -80,9 +80,8 @@ function Example() {
   return (
     <div>
       <h1>
-        Welcome to <span>Inco Network</span>
+        Welcome to <span>Inco Gentry Testnet</span>
       </h1>
-
       <Form className="Form-container">
         <Form.Group className="form-group">
           <Form.Label className="label">uint8: </Form.Label>

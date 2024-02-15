@@ -2,7 +2,7 @@ import { BrowserProvider } from "ethers";
 import { createFhevmInstance } from "./utils/fhevm";
 import { useState, useCallback, useEffect, useMemo, React } from "react";
 
-const AUTHORIZED_CHAIN_ID = ["0x2328", "0x2382", "0x2383"]; //9000, 9090, 9091
+const AUTHORIZED_CHAIN_ID = [ "0x2382", "0x2383"]; // 9090, 9091
 
 export const Connect = ({ children }) => {
   const [connected, setConnected] = useState(false);
@@ -86,14 +86,14 @@ export const Connect = ({ children }) => {
         params: [
           {
             chainId: AUTHORIZED_CHAIN_ID[0],
-            rpcUrls: ["https://evm-rpc.inco.network/"],
-            chainName: "Inco Network Devnet",
+            rpcUrls: ["https://testnet.inco.org"],
+            chainName: "Inco Gentry Testnet",
             nativeCurrency: {
               name: "INCO",
               symbol: "INCO",
               decimals: 18,
             },
-            blockExplorerUrls: ["https://explorer.inco.network"],
+            blockExplorerUrls: ["https://explorer.testnet.inco.org/"],
           },
         ],
       });
@@ -112,7 +112,7 @@ export const Connect = ({ children }) => {
           <p>You're not on the correct network</p>
           <p>
             <button className="Connect__button" onClick={switchNetwork}>
-              Switch to Inco Network Devnet
+              Switch to Inco Gentry Testnet
             </button>
           </p>
         </div>
