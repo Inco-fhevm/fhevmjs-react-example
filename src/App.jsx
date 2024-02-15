@@ -1,10 +1,33 @@
-import './App.css'
-import { useState } from "react";
+import "./App.css";
+import { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
-import { getInstance } from "./utils/fhevm";
+import { init, getInstance } from "./utils/fhevm";
 import { toHexString } from "./utils/utils";
+import { Connect } from "./Connect";
 
 function App() {
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  useEffect(() => {
+    init()
+      .then(() => {
+        setIsInitialized(true);
+      })
+      .catch(() => setIsInitialized(false));
+  }, []);
+
+  if (!isInitialized) return null;
+
+  return (
+    <div className="App">
+      <div className="menu">
+        <Connect>{(account, provider) => <Example />}</Connect>
+      </div>
+    </div>
+  );
+}
+
+function Example() {
   const [amountUint8, setAmountUint8] = useState(0);
   const [eamountUint8, setEamountUint8] = useState(0);
   const [amountUint16, setAmountUint16] = useState(0);
@@ -14,10 +37,10 @@ function App() {
 
   const handleAmountChangeUint8 = (event) => {
     let _instance = getInstance();
-    _instance.then(instance=>{
-        setEamountUint8(toHexString(instance.encrypt8(+event.target.value)));
+    _instance.then((instance) => {
+      setEamountUint8(toHexString(instance.encrypt8(+event.target.value)));
     });
-    setAmountUint8(event.target.value)
+    setAmountUint8(event.target.value);
   };
 
   const handleCopyClickUint8 = () => {
@@ -28,10 +51,10 @@ function App() {
 
   const handleAmountChangeUint16 = (event) => {
     let _instance = getInstance();
-    _instance.then(instance=>{
-        setEamountUint16(toHexString(instance.encrypt16(+event.target.value)));
+    _instance.then((instance) => {
+      setEamountUint16(toHexString(instance.encrypt16(+event.target.value)));
     });
-    setAmountUint16(event.target.value)
+    setAmountUint16(event.target.value);
   };
 
   const handleCopyClickUint16 = () => {
@@ -42,10 +65,10 @@ function App() {
 
   const handleAmountChangeUint32 = (event) => {
     let _instance = getInstance();
-    _instance.then(instance=>{
-        setEamountUint32(toHexString(instance.encrypt32(+event.target.value)));
+    _instance.then((instance) => {
+      setEamountUint32(toHexString(instance.encrypt32(+event.target.value)));
     });
-    setAmountUint32(event.target.value)
+    setAmountUint32(event.target.value);
   };
 
   const handleCopyClickUint32 = () => {
@@ -55,48 +78,106 @@ function App() {
   };
 
   return (
-    <div className='App'>
-      <h1>Welcome to <span>Inco Network</span></h1>
-  
+    <div>
+      <h1>
+        Welcome to <span>Inco Network</span>
+      </h1>
+
       <Form className="Form-container">
-      <Form.Group className="form-group">
-            <Form.Label className="label" >uint8: </Form.Label> 
-            <Form.Control style={{ color: 'black' }} type="text" value={amountUint8} placeholder="10" onChange={handleAmountChangeUint8} className="Input"/>
+        <Form.Group className="form-group">
+          <Form.Label className="label">uint8: </Form.Label>
+          <Form.Control
+            style={{ color: "black" }}
+            type="text"
+            value={amountUint8}
+            placeholder="10"
+            onChange={handleAmountChangeUint8}
+            className="Input"
+          />
         </Form.Group>
         <Form.Group className="form-group">
-            <Form.Label className="label">ciphertext  </Form.Label> 
-            <Form.Control style={{ color: '#72FF80' }} type="text" value={"0x"+eamountUint8}  disabled onChange={handleAmountChangeUint8} className="Input"/>
-            {eamountUint8 !== 0 && (
-              <Button variant="default" onClick={handleCopyClickUint8}>Copy</Button>
-            )}
+          <Form.Label className="label">ciphertext </Form.Label>
+          <Form.Control
+            style={{ color: "#72FF80" }}
+            type="text"
+            value={"0x" + eamountUint8}
+            disabled
+            onChange={handleAmountChangeUint8}
+            className="Input"
+          />
+          {eamountUint8 !== 0 && (
+            <Button variant="default" onClick={handleCopyClickUint8}>
+              Copy
+            </Button>
+          )}
         </Form.Group>
         <Form.Group className="form-group">
-            <Form.Label className="label" >uint16: </Form.Label> 
-            <Form.Control style={{ color: 'black' }} type="text" value={amountUint16} placeholder="10" onChange={handleAmountChangeUint16} className="Input"/>
+          <Form.Label className="label">uint16: </Form.Label>
+          <Form.Control
+            style={{ color: "black" }}
+            type="text"
+            value={amountUint16}
+            placeholder="10"
+            onChange={handleAmountChangeUint16}
+            className="Input"
+          />
         </Form.Group>
         <Form.Group className="form-group">
-            <Form.Label className="label">ciphertext  </Form.Label> 
-            <Form.Control style={{ color: '#72FF80' }} type="text" value={"0x"+eamountUint16}  disabled onChange={handleAmountChangeUint16} className="Input"/>
-            {eamountUint16 !== 0 && (
-              <Button variant="default" onClick={handleCopyClickUint16}>Copy</Button>
-            )}
+          <Form.Label className="label">ciphertext </Form.Label>
+          <Form.Control
+            style={{ color: "#72FF80" }}
+            type="text"
+            value={"0x" + eamountUint16}
+            disabled
+            onChange={handleAmountChangeUint16}
+            className="Input"
+          />
+          {eamountUint16 !== 0 && (
+            <Button variant="default" onClick={handleCopyClickUint16}>
+              Copy
+            </Button>
+          )}
         </Form.Group>
         <Form.Group className="form-group">
-            <Form.Label className="label" >uint32: </Form.Label> 
-            <Form.Control style={{ color: 'black' }} type="text" value={amountUint32} placeholder="10" onChange={handleAmountChangeUint32} className="Input"/>
+          <Form.Label className="label">uint32: </Form.Label>
+          <Form.Control
+            style={{ color: "black" }}
+            type="text"
+            value={amountUint32}
+            placeholder="10"
+            onChange={handleAmountChangeUint32}
+            className="Input"
+          />
         </Form.Group>
         <Form.Group className="form-group">
-            <Form.Label className="label">ciphertext  </Form.Label> 
-            <Form.Control style={{ color: '#72FF80' }} type="text" value={"0x"+eamountUint32}  disabled onChange={handleAmountChangeUint32} className="Input"/>
-            {eamountUint32 !== 0 && (
-              <Button variant="default" onClick={handleCopyClickUint32}>Copy</Button>
-            )}
+          <Form.Label className="label">ciphertext </Form.Label>
+          <Form.Control
+            style={{ color: "#72FF80" }}
+            type="text"
+            value={"0x" + eamountUint32}
+            disabled
+            onChange={handleAmountChangeUint32}
+            className="Input"
+          />
+          {eamountUint32 !== 0 && (
+            <Button variant="default" onClick={handleCopyClickUint32}>
+              Copy
+            </Button>
+          )}
         </Form.Group>
       </Form>
       <br></br>
-      <span className='footer'>Documentation: <a href='https://docs.inco.network/introduction/inco-network-introduction' target="_blank">docs.inco.network</a></span>
+      <span className="footer">
+        Documentation:{" "}
+        <a
+          href="https://docs.inco.network/introduction/inco-network-introduction"
+          target="_blank"
+        >
+          docs.inco.network
+        </a>
+      </span>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
