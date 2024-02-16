@@ -4,6 +4,7 @@ export const init = async () => {
   await initFhevm();
 };
 
+// TFHE.sol contract address
 // From https://github.com/zama-ai/fhevmjs/blob/c4b8a80a8783ef965973283362221e365a193b76/bin/fhevm.js#L9
 const FHE_LIB_ADDRESS = "0x000000000000000000000000000000000000005d";
 
