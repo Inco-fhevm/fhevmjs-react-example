@@ -13,4 +13,4 @@ The app will be running on http://localhost:5173/.
 
 ## Next Steps
 
-Take a look at the [Inco Network documentation](https://docs.inco.network) to learn more about all the operations you can do.
+Take a look at the [Inco Network documentation](https://docs.inco.org) to learn more about all the operations you can do.
