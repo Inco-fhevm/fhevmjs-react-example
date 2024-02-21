@@ -169,10 +169,10 @@ function Example() {
       <span className="footer">
         Documentation:{" "}
         <a
-          href="https://docs.inco.network/introduction/inco-network-introduction"
+          href="https://docs.inco.org/introduction/inco-network-introduction"
           target="_blank"
         >
-          docs.inco.network
+          docs.inco.org
         </a>
       </span>
     </div>
