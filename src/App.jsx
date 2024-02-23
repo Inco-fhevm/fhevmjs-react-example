@@ -4,8 +4,9 @@ import { Button, Form } from "react-bootstrap";
 import { getInstance, init } from "./utils/fhevm";
 import { toHexString } from "./utils/utils";
 import Layout from "./Layout.jsx";
-import { WalletContext, WalletProvider} from "./WalletContext.jsx";
+import { WalletContext, WalletProvider } from "./WalletContext.jsx";
 import { ConnectWallet } from "./Connect.jsx";
+import { Copy } from "./Copy.jsx";
 
 const App = () => {
     const [isInitialized, setIsInitialized] = useState(false);
@@ -42,156 +43,83 @@ const MainContent = ({ children }) => {
     )
 }
 
-const Utils = () => {
-    const [amountUint8, setAmountUint8] = useState(0);
-    const [eamountUint8, setEamountUint8] = useState(0);
-    const [amountUint16, setAmountUint16] = useState(0);
-    const [eamountUint16, setEamountUint16] = useState(0);
-    const [amountUint32, setAmountUint32] = useState(0);
-    const [eamountUint32, setEamountUint32] = useState(0);
+const groups = [{
+    controlId: 'uint8',
+    inputLabel: 'uint8',
+    outputLabel: 'ciphertext',
+    encryptFn: (instance) => instance.encrypt8
+}, {
+    controlId: 'uint16',
+    inputLabel: 'uint16',
+    outputLabel: 'ciphertext',
+    encryptFn: (instance) => instance.encrypt16
+}, {
+    controlId: 'uint32',
+    inputLabel: 'uint32',
+    outputLabel: 'ciphertext',
+    encryptFn: (instance) => instance.encrypt32
+}]
 
-    const handleAmountChangeUint8 = (event) => {
-        let _instance = getInstance();
-        _instance.then((instance) => {
-            setEamountUint8(toHexString(instance.encrypt8(+event.target.value)));
-        });
-        setAmountUint8(event.target.value);
+const Group = (group) => {
+    const { controlId, inputLabel, outputLabel, encryptFn } = group;
+    const [amount, setAmount] = useState(0);
+    const [eamount, setEamount] = useState(0);
+    const handleAmountChange = async (event) => {
+        setAmount(event.target.value);
+        console.log(amount);
+        const _instance = await getInstance();
+        setEamount(toHexString(encryptFn(_instance)(+event.target.value)));
     };
 
-    const handleCopyClickUint8 = () => {
-        if (eamountUint8) {
-            navigator.clipboard.writeText("0x" + eamountUint8);
-        }
-    };
-
-    const handleAmountChangeUint16 = (event) => {
-        let _instance = getInstance();
-        _instance.then((instance) => {
-            setEamountUint16(toHexString(instance.encrypt16(+event.target.value)));
-        });
-        setAmountUint16(event.target.value);
-    };
-
-    const handleCopyClickUint16 = () => {
-        if (eamountUint16) {
-            navigator.clipboard.writeText("0x" + eamountUint16);
-        }
-    };
-
-    const handleAmountChangeUint32 = (event) => {
-        let _instance = getInstance();
-        _instance.then((instance) => {
-            setEamountUint32(toHexString(instance.encrypt32(+event.target.value)));
-        });
-        setAmountUint32(event.target.value);
-    };
-
-    const handleCopyClickUint32 = () => {
-        if (eamountUint32) {
-            navigator.clipboard.writeText("0x" + eamountUint32);
+    const handleCopy = () => {
+        if (eamount) {
+            navigator.clipboard.writeText("0x" + eamount);
         }
     };
 
     return (
-        <div>
-            <h1>
-                Welcome to <span>Inco Gentry Testnet</span>
-            </h1>
-            <Form className="Form-container">
-                <Form.Group className="form-group">
-                    <Form.Label className="label">uint8: </Form.Label>
-                    <Form.Control
-                        style={{ color: "black" }}
-                        type="text"
-                        value={amountUint8}
-                        placeholder="10"
-                        onChange={handleAmountChangeUint8}
-                        className="Input"
-                    />
-                </Form.Group>
-                <Form.Group className="form-group">
-                    <Form.Label className="label">ciphertext </Form.Label>
-                    <Form.Control
-                        style={{ color: "#72FF80" }}
-                        type="text"
-                        value={"0x" + eamountUint8}
-                        disabled
-                        onChange={handleAmountChangeUint8}
-                        className="Input"
-                    />
-                    {eamountUint8 !== 0 && (
-                        <Button variant="default" onClick={handleCopyClickUint8}>
-                            Copy
-                        </Button>
-                    )}
-                </Form.Group>
-                <Form.Group className="form-group">
-                    <Form.Label className="label">uint16: </Form.Label>
-                    <Form.Control
-                        style={{ color: "black" }}
-                        type="text"
-                        value={amountUint16}
-                        placeholder="10"
-                        onChange={handleAmountChangeUint16}
-                        className="Input"
-                    />
-                </Form.Group>
-                <Form.Group className="form-group">
-                    <Form.Label className="label">ciphertext </Form.Label>
-                    <Form.Control
-                        style={{ color: "#72FF80" }}
-                        type="text"
-                        value={"0x" + eamountUint16}
-                        disabled
-                        onChange={handleAmountChangeUint16}
-                        className="Input"
-                    />
-                    {eamountUint16 !== 0 && (
-                        <Button variant="default" onClick={handleCopyClickUint16}>
-                            Copy
-                        </Button>
-                    )}
-                </Form.Group>
-                <Form.Group className="form-group">
-                    <Form.Label className="label">uint32: </Form.Label>
-                    <Form.Control
-                        style={{ color: "black" }}
-                        type="text"
-                        value={amountUint32}
-                        placeholder="10"
-                        onChange={handleAmountChangeUint32}
-                        className="Input"
-                    />
-                </Form.Group>
-                <Form.Group className="form-group">
-                    <Form.Label className="label">ciphertext </Form.Label>
-                    <Form.Control
-                        style={{ color: "#72FF80" }}
-                        type="text"
-                        value={"0x" + eamountUint32}
-                        disabled
-                        onChange={handleAmountChangeUint32}
-                        className="Input"
-                    />
-                    {eamountUint32 !== 0 && (
-                        <Button variant="default" onClick={handleCopyClickUint32}>
-                            Copy
-                        </Button>
-                    )}
-                </Form.Group>
-            </Form>
-            <br></br>
-            <span className="footer">
-        Documentation:{" "}
-                <a
-                    href="https://docs.inco.org/introduction/inco-network-introduction"
-                    target="_blank"
+        <>
+            <Form.Group controlId={`${controlId}-input`} className={'flex flex-col sm:flex-row mb-4 sm:items-center items-start sm:w-[750px] w-full'}>
+                <Form.Label className={'w-[120px] inline-block sm:mr-5 sm:text-right'}>
+                    {inputLabel}
+                </Form.Label>
+                <Form.Control
+                    type="text"
+                    value={amount}
+                    placeholder="10"
+                    onChange={handleAmountChange}
+                    className={'flex-1 inline-block h-[70px] min-h-[64px] px-4 mt-2 text-ellipsis border-border rounded border-2 bg-transparent w-full'}>
+                </Form.Control>
+            </Form.Group>
+            <Form.Group controlId={`${controlId}-output`} className={'flex flex-col sm:flex-row mb-[60px] sm:items-center items-start sm:w-[750px] w-full relative'}>
+                <Form.Label className={'w-[120px] inline-block sm:mr-5 sm:text-right'}>
+                    {outputLabel}
+                </Form.Label>
+                <Form.Control
+                    type="text"
+                    value={"0x" + eamount}
+                    disabled
+                    onChange={handleAmountChange}
+                    className={'flex-1 inline-block h-[70px] min-h-[64px] pl-4 pr-10 mt-2 text-green text-ellipsis border-border rounded border-2 bg-transparent w-full'}
                 >
-          docs.inco.org
-        </a>
-      </span>
-        </div>
-    );
+                </Form.Control>
+                <div className={'absolute bottom-[18px] right-[10px] sm:bottom-[20px] hover:cursor-pointer'} onClick={handleCopy}>
+                    <Copy/>
+                </div>
+            </Form.Group>
+        </>
+    )
+}
+
+const Utils = () => {
+    return (
+        <Form className={'mt-10 sm:px-5 px-3 flex flex-col mx-auto sm:w-fit w-full'}>
+            {groups.map((group, index) => {
+                    return <Group key={index} {...group} />
+                }
+            )}
+        </Form>
+    )
 }
 
 export default App;
