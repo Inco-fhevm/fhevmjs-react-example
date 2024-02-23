@@ -5,15 +5,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-#root {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    width: 100%;
-    height: 100%;
-}
-
 :root {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
@@ -33,6 +24,14 @@
     --secondary-color: #3FF480;
     --text-color: #BCD0FC;
     --background-color: #020B20;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-width: 100vw;
+    position: static;
 }
 
 a {

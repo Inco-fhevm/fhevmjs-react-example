@@ -15,6 +15,12 @@ export const ConnectWallet = () => {
     );
 };
 
+const Image = () => (
+    <div className={'m-auto sm:w-[420px] w-full h-[240px]'}>
+        <img src={'./mosaic.png'} alt={'hero'} className={''}/>
+    </div>
+)
+
 const Connect = () => {
     const {
         connect,
@@ -24,9 +30,7 @@ const Connect = () => {
     return (
         <div className={'flex items-center justify-center w-full h-full'}>
             <div className={'flex flex-col mx-auto sm:mt-[10%] sm:w-[560px] sm:p-0 p-3 w-full'}>
-                <div className={'m-auto w-[420px] h-[240px]'}>
-                    <img src={'./mosaic.png'} alt={'hero'} className={''}/>
-                </div>
+                <Image/>
                 <button className={'w-full px-8 py-4 mt-[60px]'} onClick={connect}>
                     Connect your wallet
                 </button>
@@ -49,9 +53,7 @@ const SwitchNetwork = () => {
     return (
         <div className={'flex items-center justify-center w-full h-full'}>
             <div className={'flex flex-col mx-auto sm:mt-[10%] sm:w-[560px] sm:p-0 p-3 w-full'}>
-                <div className={'m-auto w-[420px] h-[240px]'}>
-                    <img src={'./mosaic.png'} alt={'hero'} className={''}/>
-                </div>
+                <Image/>
                 <div className={'text-green self-center font-urb text-4xl font-bold mt-[60px] leading-tight'}>
                     Please connect to Inco Testnet
                 </div>
@@ -71,9 +73,7 @@ const Error = () => {
     return (
         <div className={'flex items-center justify-center w-full h-full'}>
             <div className={'flex flex-col mx-auto sm:mt-[10%] sm:w-[560px] sm:p-0 p-3 w-full'}>
-                <div className={'m-auto w-[420px] h-[240px]'}>
-                    <img src={'./mosaic.png'} alt={'hero'} className={''}/>
-                </div>
+                <Image/>
                 <div className={'text-green self-center font-urb text-4xl font-bold mt-[60px] leading-tight'}>
                     No wallet has been found.
                 </div>
