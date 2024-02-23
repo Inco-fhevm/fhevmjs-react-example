@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import WalletContext from "./WalletContext.jsx";
+import { ArrowTopRight } from "./ArrowTopRight";
 
 
 export const ConnectWallet = () => {
@@ -16,7 +17,8 @@ export const ConnectWallet = () => {
 
 const Connect = () => {
     const {
-        connect
+        connect,
+        addIncoTestnet
     } = useContext(WalletContext);
 
     return (
@@ -28,8 +30,11 @@ const Connect = () => {
                 <button className={'w-full px-8 py-4 mt-[60px]'} onClick={connect}>
                     Connect your wallet
                 </button>
-                <div className={'mt-10 self-center'}>
-                    Add Inco Testnet <span> </span>
+                <div className={'mt-10 self-center inline flex flex-row hover:cursor-pointer'} onClick={addIncoTestnet}>
+                    <span className={'text-blue'}>
+                        Add Inco Testnet
+                    </span>
+                    <span className={'ml-2'}><ArrowTopRight/> </span>
                 </div>
             </div>
         </div>
@@ -37,28 +42,42 @@ const Connect = () => {
 }
 
 const SwitchNetwork = () => {
-    // if (!connecting && !validNetwork) {
-    //     return (
-    //         <div>
-    //             <p>You're not on the correct network</p>
-    //             <p>
-    //                 <button className="Connect__button" onClick={switchNetwork}>
-    //                     Switch to Inco Gentry Testnet
-    //                 </button>
-    //             </p>
-    //         </div>
-    //     );
-    // }
+    const {
+        switchNetwork
+    } = useContext(WalletContext);
+
     return (
-        <> </>
+        <div className={'flex items-center justify-center w-full h-full'}>
+            <div className={'flex flex-col mx-auto sm:mt-[10%] sm:w-[560px] sm:p-0 p-3 w-full'}>
+                <div className={'m-auto w-[420px] h-[240px]'}>
+                    <img src={'./mosaic.png'} alt={'hero'} className={''}/>
+                </div>
+                <div className={'text-green self-center font-urb text-4xl font-bold mt-[60px] leading-tight'}>
+                    Please connect to Inco Testnet
+                </div>
+                <div className={'mt-10 self-center inline flex flex-row hover:cursor-pointer'} onClick={switchNetwork}>
+                    <span className={'text-blue'}>
+                        Switch to Inco Testnet
+                    </span>
+                    <span className={'ml-2'}><ArrowTopRight/> </span>
+                </div>
+            </div>
+        </div>
     )
 }
 
 
 const Error = () => {
     return (
-        <div>
-            No wallet has been found.
+        <div className={'flex items-center justify-center w-full h-full'}>
+            <div className={'flex flex-col mx-auto sm:mt-[10%] sm:w-[560px] sm:p-0 p-3 w-full'}>
+                <div className={'m-auto w-[420px] h-[240px]'}>
+                    <img src={'./mosaic.png'} alt={'hero'} className={''}/>
+                </div>
+                <div className={'text-green self-center font-urb text-4xl font-bold mt-[60px] leading-tight'}>
+                    No wallet has been found.
+                </div>
+            </div>
         </div>
     )
 }

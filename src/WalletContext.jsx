@@ -44,28 +44,14 @@ export const WalletProvider = ({ children }) => {
     }, [hasValidNetwork]);
 
     const switchNetwork = useCallback(async () => {
+        console.log('called switchNetwork')
         try {
             await window.ethereum.request({
                 method: "wallet_switchEthereumChain",
                 params: [{ chainId: AUTHORIZED_CHAIN_ID[0] }],
             });
         } catch (e) {
-            await window.ethereum.request({
-                method: "wallet_addEthereumChain",
-                params: [
-                    {
-                        chainId: AUTHORIZED_CHAIN_ID[0],
-                        rpcUrls: ["https://testnet.inco.org"],
-                        chainName: "Inco Gentry Testnet",
-                        nativeCurrency: {
-                            name: "INCO",
-                            symbol: "INCO",
-                            decimals: 18,
-                        },
-                        blockExplorerUrls: ["https://explorer.testnet.inco.org/"],
-                    },
-                ],
-            });
+            // await addIncoTestnet();
         }
         await refreshNetwork();
     }, [provider, refreshNetwork]);
@@ -81,6 +67,7 @@ export const WalletProvider = ({ children }) => {
             setConnected(true);
             const isValidNetwork = await hasValidNetwork();
             if (!isValidNetwork) {
+                console.log('provider', provider, isValidNetwork)
                 await switchNetwork();
             } else {
                 await refreshNetwork();
@@ -89,16 +76,20 @@ export const WalletProvider = ({ children }) => {
     }, [provider, refreshNetwork, switchNetwork]);
 
     useEffect(() => {
-        connect();
+        connect()
     }, [provider])
 
     const refreshAccounts = useCallback(async () => {
-        window.ethereum.request("eth_accounts", [])
+        window.ethereum.request({ method: 'eth_requestAccounts' })
             .then(async (accounts) => {
+                console.log(accounts)
                 setAccount(accounts[0] || "");
                 setConnected(accounts.length > 0);
             })
-            .catch(() => {
+            .catch((e) => {
+                setAccount(null);
+                setConnected(false);
+                console.log(e);
                 // Do nothing
             });
     }, [provider, refreshNetwork]);
@@ -114,16 +105,46 @@ export const WalletProvider = ({ children }) => {
         refreshAccounts();
     }, []);
 
+    const addIncoTestnet = async () => {
+        window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [
+                {
+                    chainId: AUTHORIZED_CHAIN_ID[0],
+                    rpcUrls: ["https://testnet.inco.org"],
+                    chainName: "Inco Gentry Testnet",
+                    nativeCurrency: {
+                        name: "INCO",
+                        symbol: "INCO",
+                        decimals: 18,
+                    },
+                    blockExplorerUrls: ["https://explorer.testnet.inco.org/"],
+                },
+            ],
+        });
+    }
+
     useEffect(() => {
         if (!window.ethereum) {
             return;
         }
-        window.ethereum.on("accountsChanged", refreshAccounts);
-        window.ethereum.on("chainChanged", refreshNetwork);
+        window.ethereum.on("accountsChanged", () => {
+            console.log('accountsChanged')
+            refreshAccounts();
+        });
+        window.ethereum.on("chainChanged", () => {
+            console.log('chainChanged');
+            refreshNetwork();
+        });
+        window.ethereum.on("disconnect", () => {
+            console.log('disconnect')
+            setConnected(false);
+            setAccount(null);
+        })
     }, []);
 
     const value = useMemo(() => (
-        { account, setAccount, provider, setProvider, validNetwork, error, connecting, connected, switchNetwork, connect }
+        { account, setAccount, provider, setProvider, validNetwork, error, connecting, connected, switchNetwork, connect, addIncoTestnet }
     ), [account, provider, validNetwork, error, connecting, connected, switchNetwork, connect]);
 
     return (

@@ -1,4 +1,4 @@
-export const Brand = () => <svg width="139" height="40" viewBox="0 0 139 40" fill="none"
+export const Brand = () => <svg width="100%" height="100%" viewBox="0 0 139 40" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
     <path d="M52.6953 30.336V9.60001H57.093V30.336H52.6953Z" fill="#BCD0FC"/>
     <path

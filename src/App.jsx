@@ -33,6 +33,7 @@ const App = () => {
 const MainContent = ({ children }) => {
     const { connected, validNetwork } = useContext(WalletContext);
     const connectedToValidNetwork = connected && validNetwork;
+    console.log('connected, validNetwork', connected, validNetwork)
     return (
         <Layout>
             {connectedToValidNetwork && children}
