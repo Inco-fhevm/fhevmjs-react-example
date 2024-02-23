@@ -1,24 +1,3 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  background-color: #242424;
-}
-body{
-  background-color: #242424;
-  color: #ffffff;
-}
-.App{
-  display: flex;
-  flex-direction: column;
-  justify-content: center  ;
-  align-items: center;
-  text-align: center;
-}
-.App button{
-  margin: 1rem;
-}
 .Form-container{
   display: flex;
   flex-direction: column;
