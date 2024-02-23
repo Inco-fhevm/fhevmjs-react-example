@@ -5,7 +5,7 @@ import { getInstance, init } from "./utils/fhevm";
 import { toHexString } from "./utils/utils";
 import Layout from "./Layout.jsx";
 import { WalletContext, WalletProvider} from "./WalletContext.jsx";
-import { Connect } from "./Connect.jsx";
+import { ConnectWallet } from "./Connect.jsx";
 
 const App = () => {
     const [isInitialized, setIsInitialized] = useState(false);
@@ -36,7 +36,7 @@ const MainContent = ({ children }) => {
     return (
         <Layout>
             {connectedToValidNetwork && children}
-            {!connectedToValidNetwork && <Connect/>}
+            {!connectedToValidNetwork && <ConnectWallet/>}
         </Layout>
     )
 }

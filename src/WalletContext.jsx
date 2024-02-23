@@ -71,7 +71,7 @@ export const WalletProvider = ({ children }) => {
     }, [provider, refreshNetwork]);
 
     const connect = useCallback(async () => {
-        if (!window.ethereum) {
+        if (!provider) {
             return;
         }
         const accounts = await provider.send("eth_requestAccounts", []);

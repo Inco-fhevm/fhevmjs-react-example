@@ -2,11 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro');
 
 #root {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    width: 100%;
+    height: 100%;
 }
 
 :root {
@@ -22,6 +25,12 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
+
+    --surface-primary: #020B20;
+    --primary-color: #3673F5;
+    --secondary-color: #3FF480;
+    --text-color: #BCD0FC;
+    --background-color: #020B20;
 }
 
 a {
@@ -40,8 +49,9 @@ body {
     place-items: center;
     min-width: 320px;
     min-height: 100vh;
-    color: #BCD0FC;
-    background-color: #020B20;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    font-family: 'Source Code Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
 }
 
 h1 {
@@ -50,13 +60,13 @@ h1 {
 }
 
 button {
-    border-radius: 8px;
+    border-radius: 12px;
     border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
+    font-size: 20px;
     font-weight: 500;
     font-family: inherit;
-    background-color: #1a1a1a;
+    color: var(--surface-primary);
+    background-color: var(--primary-color);
     cursor: pointer;
     transition: border-color 0.25s;
 }
@@ -68,19 +78,4 @@ button:hover {
 button:focus,
 button:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-    :root {
-        color: #213547;
-        background-color: #ffffff;
-    }
-
-    a:hover {
-        color: #747bff;
-    }
-
-    button {
-        background-color: #f9f9f9;
-    }
 }
